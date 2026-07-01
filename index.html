@@ -236,7 +236,7 @@
         }
 
         .marquee-text {
-            display: block;
+            display: inline-block; /* تعديل لضبط محاذاة النص */
             color: #f3e8d8;
             font-size: 20px;
             font-weight: 600;
@@ -248,9 +248,10 @@
             padding: 0 20px;
         }
 
+        /* تعديل أنميشن الحركة ليناسب اللغة العربية ويبدأ من أول كلمة */
         @keyframes scrollMarquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .main-header {
@@ -493,7 +494,6 @@
 <body>
 
 <div class="app-container" id="appContainer">
-    <!-- ====== شاشة الدخول ====== -->
     <div class="login-screen visible" id="loginScreen">
         <div class="brand">
             <div class="logo-main">AHG</div>
@@ -501,9 +501,8 @@
             <div class="logo-ahg">GROUP</div>
         </div>
 
-        <!-- ====== حاوية الصورة ====== -->
         <div class="image-container" id="imageContainer">
-            <img src="file:///android_asset/logo.jpg" alt="ALHAMADI GROUP" id="logoImage" />
+            <img src="https://raw.githubusercontent.com/abrahymalmhady7-alt/brhom/main/Logo.jpg" alt="ALHAMADI GROUP" id="logoImage" />
         </div>
 
         <div class="welcome-box">
@@ -517,10 +516,9 @@
         <div class="login-footer">ALHAMADI GROUP • 2026</div>
     </div>
 
-    <!-- ====== الشاشة الرئيسية ====== -->
     <div class="main-screen hidden" id="mainScreen">
         <div class="marquee-wrap">
-            <span class="marquee-text">مع شبكة ابراهيم الحمادي انت الافضل ✨</span>
+            <span class="marquee-text">مرحبا بكم في شبكة طوفان الاقصى ترقبو المفاجا</span>
         </div>
 
         <div class="main-header">
@@ -571,7 +569,6 @@
 </div>
 
 <script>
-    // ====== دوال عالمية للاستخدام المباشر ======
     function showMain() {
         var login = document.getElementById('loginScreen');
         var main = document.getElementById('mainScreen');
@@ -601,18 +598,14 @@
         var container = document.getElementById('imageContainer');
 
         img.onerror = function() {
-            // في حال عدم تحميل الصورة، نعرض رسالة بديلة
             container.innerHTML = '<div class="image-fallback">🖼️ ALHAMADI GROUP</div>';
             container.style.background = '#dacfc0';
             container.style.display = 'flex';
             container.style.alignItems = 'center';
             container.style.justifyContent = 'center';
         };
-
-        console.log('شبكة طوفان الأقصى - جاهزة');
-        console.log('مسار الصورة: file:///android_asset/logo.jpg');
     });
 </script>
 
 </body>
-</html>مر
+</html>
