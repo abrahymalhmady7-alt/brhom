@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>شبكة طوفان الأقصى</title>
+    <style>
+        /* ====== الأساسيات ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', 'Scheherazade New', 'Segoe UI', serif;
+        }
+
+        body {
+            background: #1e2b3c;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            background-image: radial-gradient(circle at 10% 20%, #2a3f54, #0f1a26);
+        }
+
+        .app-container {
+            max-width: 440px;
+            width: 100%;
+            background: #f3efe8;
+            border-radius: 48px 48px 32px 32px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px #d4c9b8 inset;
+            overflow: hidden;
+            transition: all 0.2s;
+            border: 2px solid #b8a58e;
+            position: relative;
+        }
+
+        /* ====== شاشة الدخول ====== */
+        .login-screen {
+            padding: 36px 24px 40px;
+            background: #f8f3ea;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+            border-bottom: 4px solid #b8a58e;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .brand .logo-main {
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            color: #2d1f12;
+            text-shadow: 3px 3px 0 rgba(150, 120, 80, 0.15);
+            font-family: 'Times New Roman', serif;
+        }
+
+        .brand .logo-sub {
+            font-size: 24px;
+            font-weight: 600;
+            color: #4d3624;
+            letter-spacing: 8px;
+            background: #e4dacb;
+            padding: 4px 22px;
+            border-radius: 40px;
+            border: 1px solid #c4b09b;
+            box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.6);
+        }
+
+        .brand .logo-ahg {
+            font-size: 16px;
+            font-weight: 600;
+            color: #6d5b48;
+            letter-spacing: 10px;
+            margin-top: 6px;
+            background: #dacfc0;
+            padding: 2px 18px;
+            border-radius: 30px;
+        }
+
+        /* ====== حاوية الصورة ====== */
+        .image-container {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 16 / 9;
+            border-radius: 28px;
+            border: 3px solid #b8a58e;
+            overflow: hidden;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            background: #e8ded0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ====== رسالة في حال عدم تحميل الصورة ====== */
+        .image-fallback {
+            color: #6d5b48;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .welcome-box {
+            background: #e8ded0;
+            padding: 18px 28px;
+            border-radius: 60px;
+            box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.6), 0 8px 16px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            text-align: center;
+            border: 1px solid #cbb8a4;
+        }
+
+        .welcome-box h2 {
+            font-size: 28px;
+            font-weight: 500;
+            color: #2d1f12;
+            font-family: 'Times New Roman', serif;
+        }
+        .welcome-box h2 span {
+            font-weight: 700;
+            color: #8b5a2b;
+            text-shadow: 1px 1px 0 #dac09a;
+        }
+
+        .login-btn {
+            background: #3d2c1b;
+            border: 2px solid #5f4a34;
+            color: #f5ede4;
+            font-size: 24px;
+            font-weight: 600;
+            padding: 16px 40px;
+            border-radius: 60px;
+            width: 100%;
+            max-width: 220px;
+            box-shadow: 0 8px 0 #1f150d, 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.08s linear;
+            cursor: pointer;
+            letter-spacing: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .login-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #1f150d;
+        }
+
+        .login-footer {
+            margin-top: 8px;
+            color: #6d5b48;
+            font-size: 14px;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        /* ====== الشاشة الرئيسية ====== */
+        .main-screen {
+            background: #f3efe8;
+            flex-direction: column;
+            min-height: 560px;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ====== التحكم في إخفاء/إظهار الشاشات ====== */
+        .login-screen.hidden {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 0 !important;
+        }
+
+        .main-screen.hidden {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 0 !important;
+        }
+
+        .main-screen.visible {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            position: relative !important;
+            z-index: 2 !important;
+            display: flex !important;
+        }
+
+        .login-screen.visible {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+
+        .marquee-wrap {
+            background: #2d1f12;
+            padding: 10px 0;
+            border-bottom: 4px solid #b8a58e;
+            border-top: 4px solid #b8a58e;
+            overflow: hidden;
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .marquee-text {
+            display: block;
+            color: #f3e8d8;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            animation: scrollMarquee 18s linear infinite;
+            font-family: 'Times New Roman', serif;
+            text-shadow: 2px 2px 0 #1a100a;
+            padding: 0 20px;
+        }
+
+        @keyframes scrollMarquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .main-header {
+            background: #dacfc0;
+            padding: 20px 24px 16px;
+            color: #2d1f12;
+            border-bottom: 3px solid #b8a58e;
+            text-align: center;
+        }
+
+        .main-header .greeting {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-family: 'Times New Roman', serif;
+        }
+        .main-header .greeting strong {
+            font-weight: 700;
+            color: #8b5a2b;
+            text-shadow: 1px 1px 0 #e0cdb4;
+        }
+
+        .main-header .sub-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #4d3624;
+            margin-top: 6px;
+            letter-spacing: 4px;
+            background: #e8ded0;
+            display: inline-block;
+            padding: 2px 28px;
+            border-radius: 40px;
+            border: 1px solid #b8a58e;
+        }
+
+        .network-tab {
+            background: #e8ded0;
+            margin: 24px 20px 16px;
+            border-radius: 32px;
+            padding: 24px 20px 28px;
+            box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.5), 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid #cbb8a4;
+        }
+
+        .network-tab .tab-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            font-size: 26px;
+            font-weight: 700;
+            color: #2d1f12;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 3px double #b8a58e;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .network-tab .tab-title i {
+            font-size: 32px;
+        }
+
+        .link-card {
+            background: #f8f3ea;
+            border-radius: 28px;
+            padding: 18px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            border: 2px solid #b8a58e;
+            box-shadow: inset 0 1px 4px #fff;
+        }
+
+        .link-icon-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #dacfc0;
+            padding: 8px 24px;
+            border-radius: 60px;
+            border: 1px solid #b8a58e;
+            width: 100%;
+        }
+
+        .link-icon-area .icon-big {
+            font-size: 40px;
+            line-height: 1;
+        }
+
+        .link-icon-area .icon-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: #3d2c1b;
+            letter-spacing: 2px;
+        }
+
+        .link-card .info-btn {
+            background: #3d2c1b;
+            border: 2px solid #5f4a34;
+            color: #f5ede4;
+            font-weight: 700;
+            font-size: 20px;
+            padding: 14px 20px;
+            border-radius: 60px;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #1f150d, 0 6px 14px rgba(0,0,0,0.15);
+            transition: all 0.08s linear;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Times New Roman', serif;
+            letter-spacing: 1px;
+        }
+
+        .link-card .info-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 1px 0 #1f150d;
+        }
+
+        .link-card .info-btn i {
+            font-size: 26px;
+        }
+
+        .custom-footer {
+            background: #dacfc0;
+            border-top: 3px solid #b8a58e;
+            padding: 18px 20px 22px;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .custom-footer .footer-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d1f12;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .footer-contact {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-contact .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8f3ea;
+            padding: 6px 18px 6px 14px;
+            border-radius: 60px;
+            border: 2px solid #b8a58e;
+            box-shadow: 0 3px 0 #b09b86;
+            transition: 0.08s linear;
+            cursor: pointer;
+            text-decoration: none;
+            color: #2d1f12;
+            font-weight: 600;
+            font-size: 17px;
+        }
+
+        .footer-contact .contact-item:active {
+            transform: translateY(3px);
+            box-shadow: 0 0px 0 #b09b86;
+        }
+
+        .footer-contact .contact-item .icon-phone {
+            font-size: 26px;
+            line-height: 1;
+        }
+
+        .footer-contact .contact-item .icon-whatsapp {
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .footer-contact .contact-item .action-label {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1f150d;
+        }
+
+        .back-action {
+            margin: 6px 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .back-action button {
+            background: #dacfc0;
+            border: 2px solid #b8a58e;
+            color: #2d1f12;
+            padding: 8px 28px;
+            border-radius: 60px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 3px 0 #b09b86;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .back-action button:active {
+            transform: translateY(3px);
+            box-shadow: 0 0px 0 #b09b86;
+        }
+
+        .icon-arrow:before { content: "▶"; font-size: 14px; margin-left: 4px; }
+        .icon-login:before { content: "⏎"; font-size: 26px; }
+        .icon-network:before { content: "🏛️"; font-size: 32px; }
+        .icon-card:before { content: "🪪"; font-size: 28px; }
+        .icon-exit:before { content: "⇤"; font-size: 18px; }
+        .icon-back:before { content: "←"; font-size: 18px; }
+
+        @media (max-width: 420px) {
+            .login-screen { padding: 28px 16px 30px; }
+            .brand .logo-main { font-size: 36px; }
+            .welcome-box h2 { font-size: 24px; }
+            .main-header .greeting { font-size: 22px; }
+            .network-tab .tab-title { font-size: 22px; }
+            .link-card .info-btn { font-size: 18px; padding: 12px 16px; }
+            .footer-contact .contact-item { padding: 4px 14px 4px 10px; font-size: 15px; }
+            .footer-contact .contact-item .action-label { font-size: 15px; }
+            .back-action button { font-size: 14px; padding: 6px 20px; }
+            .image-container { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container" id="appContainer">
+    <!-- ====== شاشة الدخول ====== -->
+    <div class="login-screen visible" id="loginScreen">
+        <div class="brand">
+            <div class="logo-main">AHG</div>
+            <div class="logo-sub">ALHAMADI</div>
+            <div class="logo-ahg">GROUP</div>
+        </div>
+
+        <!-- ====== حاوية الصورة ====== -->
+        <div class="image-container" id="imageContainer">
+            <img src="file:///android_asset/logo.jpg" alt="ALHAMADI GROUP" id="logoImage" />
+        </div>
+
+        <div class="welcome-box">
+            <h2>مرحباً بك <span>عميلنا الحبيب</span></h2>
+        </div>
+
+        <button class="login-btn" id="loginBtn" onclick="showMain()">
+            <span class="icon-login"></span> دخول
+        </button>
+
+        <div class="login-footer">ALHAMADI GROUP • 2026</div>
+    </div>
+
+    <!-- ====== الشاشة الرئيسية ====== -->
+    <div class="main-screen hidden" id="mainScreen">
+        <div class="marquee-wrap">
+            <span class="marquee-text">مع شبكه الحمادي تصل للمستحيل بخدمتكم ✨</span>
+        </div>
+
+        <div class="main-header">
+            <div class="greeting">👑 مرحبا بك <strong>عميلنا الحبيب</strong></div>
+            <div class="sub-title">شبكة طوفان الأقصى</div>
+        </div>
+
+        <div class="network-tab" id="networkTab">
+            <div class="tab-title">
+                <span class="icon-network"></span> 
+                <span>شبكة طوفان الأقصى</span>
+            </div>
+
+            <div class="link-card">
+                <div class="link-icon-area">
+                    <span class="icon-big">🪪</span>
+                    <span class="icon-label">بطاقة العميل</span>
+                </div>
+
+                <button class="info-btn" id="openLinkBtn" onclick="openLink()">
+                    <span class="icon-card"></span> للحصول على معلومات كرتك اضغط هنا
+                </button>
+
+                <span id="hiddenLink" style="display:none;">http://a.com/status</span>
+            </div>
+        </div>
+
+        <div class="custom-footer">
+            <div class="footer-label">📞 للشكاوي والاستفسار التواصل مع المهندس</div>
+            <div class="footer-contact">
+                <a href="tel:773108586" class="contact-item" id="callBtn">
+                    <span class="icon-phone">📞</span>
+                    <span class="action-label">اتصال</span>
+                </a>
+                <a href="https://wa.me/967773108586" target="_blank" class="contact-item" id="whatsappBtn">
+                    <span class="icon-whatsapp">💬</span>
+                    <span class="action-label">واتساب</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="back-action">
+            <button id="logoutBtn" onclick="showLogin()">
+                <span class="icon-back"></span> خروج
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ====== دوال عالمية للاستخدام المباشر ======
+    function showMain() {
+        var login = document.getElementById('loginScreen');
+        var main = document.getElementById('mainScreen');
+        login.className = 'login-screen hidden';
+        main.className = 'main-screen visible';
+    }
+
+    function showLogin() {
+        var login = document.getElementById('loginScreen');
+        var main = document.getElementById('mainScreen');
+        login.className = 'login-screen visible';
+        main.className = 'main-screen hidden';
+    }
+
+    function openLink() {
+        var link = 'http://a.com/status';
+        try {
+            window.open(link, '_blank');
+        } catch (e) {
+            window.location.href = link;
+        }
+    }
+
+    // ====== معالجة خطأ تحميل الصورة ======
+    document.addEventListener('DOMContentLoaded', function() {
+        var img = document.getElementById('logoImage');
+        var container = document.getElementById('imageContainer');
+
+        img.onerror = function() {
+            // في حال عدم تحميل الصورة، نعرض رسالة بديلة
+            container.innerHTML = '<div class="image-fallback">🖼️ ALHAMADI GROUP</div>';
+            container.style.background = '#dacfc0';
+            container.style.display = 'flex';
+            container.style.alignItems = 'center';
+            container.style.justifyContent = 'center';
+        };
+
+        console.log('شبكة طوفان الأقصى - جاهزة');
+        console.log('مسار الصورة: file:///android_asset/logo.jpg');
+    });
+</script>
+
+</body>
+</html>مر
