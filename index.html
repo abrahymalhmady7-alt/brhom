@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>شبكة طوفان الأقصى</title>
     <style>
-        /* ====== الأساسيات ====== */
+        /* ============================================================
+           الأساسيات + الوضع الليلي
+           ============================================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Cairo', 'Tajawal', 'Segoe UI', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         body {
@@ -22,9 +25,10 @@
             background: linear-gradient(145deg, #0a0e1a 0%, #1a1f35 40%, #2a1f3a 100%);
             position: relative;
             overflow-x: hidden;
+            transition: background 0.4s ease;
         }
 
-        /* خلفية متحركة بنجوم متلألئة */
+        /* خلفية نجوم متحركة */
         body::before {
             content: '';
             position: fixed;
@@ -32,15 +36,13 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: 
+            background-image:
                 radial-gradient(2px 2px at 20px 30px, #fff, transparent),
-                radial-gradient(3px 3px at 40px 70px, rgba(255,215,0,0.8), transparent),
+                radial-gradient(3px 3px at 40px 70px, rgba(255, 215, 0, 0.8), transparent),
                 radial-gradient(2px 2px at 50px 160px, #ddd, transparent),
-                radial-gradient(2px 2px at 90px 40px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 90px 40px, rgba(255, 255, 255, 0.6), transparent),
                 radial-gradient(3px 3px at 130px 80px, #ffd700, transparent),
-                radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(2px 2px at 200px 120px, #fff, transparent),
-                radial-gradient(3px 3px at 250px 50px, rgba(255,215,0,0.6), transparent);
+                radial-gradient(2px 2px at 160px 30px, rgba(255, 255, 255, 0.7), transparent);
             background-size: 300px 300px;
             background-repeat: repeat;
             opacity: 0.4;
@@ -54,28 +56,303 @@
             100% { opacity: 0.6; }
         }
 
+        /* ====== الوضع الليلي (Dark Mode) ====== */
+        body.dark-mode {
+            background: #0a0a0a !important;
+        }
+        body.dark-mode .app-container {
+            background: #1a1a1a !important;
+            border-color: #d4af37 !important;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(212, 175, 55, 0.2) !important;
+        }
+        body.dark-mode .login-screen,
+        body.dark-mode .main-screen,
+        body.dark-mode .features-page {
+            background: #1e1e1e !important;
+        }
+        body.dark-mode .welcome-box,
+        body.dark-mode .main-header,
+        body.dark-mode .network-tab,
+        body.dark-mode .link-card,
+        body.dark-mode .feature-card,
+        body.dark-mode .notification-card,
+        body.dark-mode .support-card,
+        body.dark-mode .link-icon-area,
+        body.dark-mode .custom-footer {
+            background: #2a2a2a !important;
+            border-color: #d4af37 !important;
+        }
+        body.dark-mode .welcome-box h2,
+        body.dark-mode .main-header .greeting,
+        body.dark-mode .network-tab .tab-title,
+        body.dark-mode .link-icon-area .icon-label,
+        body.dark-mode .feature-card .feature-info .feature-name,
+        body.dark-mode .notification-card .notif-info .notif-text,
+        body.dark-mode .support-card .support-info .support-name,
+        body.dark-mode .custom-footer .footer-label,
+        body.dark-mode .brand .logo-sub,
+        body.dark-mode .brand .logo-ahg {
+            color: #f0e8dc !important;
+        }
+        body.dark-mode .feature-card .feature-info .feature-desc,
+        body.dark-mode .support-card .support-info .support-desc {
+            color: #b0a090 !important;
+        }
+        body.dark-mode .login-footer {
+            color: #d4af37 !important;
+        }
+        body.dark-mode .back-action button,
+        body.dark-mode .menu-toggle-btn,
+        body.dark-mode .features-page .features-header .back-btn {
+            background: #2a2a2a !important;
+            color: #d4af37 !important;
+            border-color: #d4af37 !important;
+        }
+        body.dark-mode .side-menu {
+            background: #111 !important;
+        }
+        body.dark-mode .footer-contact .contact-item {
+            background: #2a2a2a !important;
+            color: #f0e8dc !important;
+            border-color: #d4af37 !important;
+        }
+        /* استثناء النصوص الذهبية */
+        body.dark-mode .brand .logo-main {
+            background: linear-gradient(135deg, #D4AF37, #F5D061) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+        body.dark-mode .main-header .greeting strong {
+            background: linear-gradient(135deg, #D4AF37, #F5D061) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+        body.dark-mode .welcome-box h2 span {
+            background: linear-gradient(135deg, #D4AF37, #F5D061) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+        /* الماركي */
+        body.dark-mode .marquee-wrap {
+            background: #111 !important;
+            border-color: #d4af37 !important;
+        }
+
         .app-container {
             max-width: 450px;
             width: 100%;
             background: linear-gradient(180deg, #f5f0e8 0%, #e8e0d5 100%);
             border-radius: 56px 56px 40px 40px;
-            box-shadow: 
+            box-shadow:
                 0 30px 80px rgba(0, 0, 0, 0.7),
                 0 0 0 2px rgba(212, 175, 55, 0.3),
                 inset 0 2px 4px rgba(255, 255, 255, 0.8);
             overflow: hidden;
             position: relative;
             z-index: 1;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: 1px solid rgba(212, 175, 55, 0.2);
+            min-height: 600px;
+            transition: all 0.4s ease;
         }
 
-        .app-container:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.8), 0 0 0 3px rgba(212, 175, 55, 0.2);
+        /* ============================================================
+           شاشة التحميل (Splash Screen)
+           ============================================================ */
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #0a0e1a, #1a1f35);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 30px;
+            z-index: 9999;
+            animation: splashFade 1.5s ease;
+        }
+        #splashScreen.active {
+            display: flex;
+        }
+        @keyframes splashFade {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        #splashScreen .splash-logo {
+            font-size: 70px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #D4AF37, #F5D061);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 12px;
+            font-family: 'Cairo', sans-serif;
+        }
+        #splashScreen .splash-loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(212, 175, 55, 0.2);
+            border-top: 5px solid #D4AF37;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #splashScreen .splash-sub {
+            color: #d4af37;
+            font-size: 18px;
+            letter-spacing: 6px;
+            opacity: 0.7;
+            font-family: 'Cairo', sans-serif;
         }
 
-        /* ====== شاشة الدخول ====== */
+        /* ============================================================
+           القائمة الجانبية
+           ============================================================ */
+        .side-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(4px);
+            animation: fadeIn 0.3s ease;
+        }
+        .side-menu-overlay.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100%;
+            background: linear-gradient(180deg, #1a1408, #3d2b1a, #1a1408);
+            z-index: 1001;
+            transition: right 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: -8px 0 30px rgba(0, 0, 0, 0.5);
+            border-left: 3px solid #d4af37;
+            padding: 30px 20px;
+            overflow-y: auto;
+            direction: rtl;
+        }
+        .side-menu.open {
+            right: 0;
+        }
+        .side-menu .menu-header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #d4af37;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .side-menu .menu-header .menu-logo {
+            font-size: 32px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8B7500, #D4AF37, #F5D061);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Cairo', sans-serif;
+            letter-spacing: 4px;
+        }
+        .side-menu .menu-header .menu-sub {
+            color: #d4af37;
+            font-size: 14px;
+            letter-spacing: 3px;
+            opacity: 0.7;
+            font-family: 'Cairo', sans-serif;
+        }
+        .side-menu .menu-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: none;
+            border: none;
+            color: #d4af37;
+            font-size: 28px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            padding: 5px 10px;
+        }
+        .side-menu .menu-close:hover {
+            transform: rotate(90deg);
+        }
+        .side-menu .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 18px;
+            margin: 6px 0;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            color: #f5e6d3;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+            text-align: right;
+            position: relative;
+        }
+        .side-menu .menu-item:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: #d4af37;
+            transform: translateX(-4px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
+        }
+        .side-menu .menu-item:active {
+            transform: scale(0.97);
+        }
+        .side-menu .menu-item .item-icon {
+            font-size: 28px;
+            min-width: 40px;
+            text-align: center;
+        }
+        .side-menu .menu-item .item-text {
+            flex: 1;
+        }
+        .side-menu .menu-item .item-arrow {
+            color: #d4af37;
+            font-size: 20px;
+            opacity: 0.5;
+        }
+        /* الشارة (Badge) بجوار الإشعارات */
+        .menu-item .badge {
+            background: #e74c3c;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 2px 10px;
+            border-radius: 30px;
+            margin-right: 8px;
+            min-width: 24px;
+            text-align: center;
+            font-family: 'Cairo', sans-serif;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+        }
+
+        /* ============================================================
+           شاشة الدخول
+           ============================================================ */
         .login-screen {
             padding: 40px 28px 44px;
             background: linear-gradient(180deg, #f5f0e8 0%, #ece4d8 100%);
@@ -87,8 +364,6 @@
             position: relative;
             z-index: 2;
         }
-
-        /* زخرفة ذهبية علوية */
         .login-screen::before {
             content: '✦ ✦ ✦';
             position: absolute;
@@ -108,7 +383,6 @@
             gap: 2px;
             margin-top: 4px;
         }
-
         .brand .logo-main {
             font-size: 54px;
             font-weight: 900;
@@ -120,21 +394,18 @@
             filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.3));
             font-family: 'Cairo', sans-serif;
         }
-
         .brand .logo-sub {
             font-size: 24px;
             font-weight: 700;
-            color: #5a3d2b;
             letter-spacing: 10px;
             background: linear-gradient(135deg, #d4af37, #f5d061);
             padding: 6px 30px;
             border-radius: 60px;
             border: 2px solid #c9a84c;
-            box-shadow: inset 0 2px 8px rgba(255, 215, 0, 0.3), 0 4px 12px rgba(0,0,0,0.06);
+            box-shadow: inset 0 2px 8px rgba(255, 215, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.06);
             font-family: 'Cairo', sans-serif;
             color: #3d2b1a;
         }
-
         .brand .logo-ahg {
             font-size: 16px;
             font-weight: 700;
@@ -148,7 +419,6 @@
             font-family: 'Cairo', sans-serif;
         }
 
-        /* ====== حاوية الصورة ====== */
         .image-container {
             width: 100%;
             max-width: 340px;
@@ -156,21 +426,17 @@
             border-radius: 32px;
             border: 4px solid #d4af37;
             overflow: hidden;
-            box-shadow: 
-                0 8px 24px rgba(212, 175, 55, 0.2),
-                inset 0 0 0 2px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2), inset 0 0 0 2px rgba(255, 215, 0, 0.3);
             background: linear-gradient(135deg, #2d1f12, #4d3624);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
         }
-
         .image-container:hover {
             transform: scale(1.02);
             box-shadow: 0 12px 40px rgba(212, 175, 55, 0.3);
         }
-
         .image-container img {
             width: 100%;
             height: 100%;
@@ -178,11 +444,9 @@
             display: block;
             transition: transform 0.5s ease;
         }
-
         .image-container:hover img {
             transform: scale(1.05);
         }
-
         .image-fallback {
             color: #d4af37;
             font-size: 18px;
@@ -202,16 +466,13 @@
             background: linear-gradient(135deg, #f5e6d3, #ecdcc8);
             padding: 18px 32px;
             border-radius: 80px;
-            box-shadow: 
-                inset 0 2px 8px rgba(255, 215, 0, 0.2),
-                0 8px 24px rgba(0, 0, 0, 0.06);
+            box-shadow: inset 0 2px 8px rgba(255, 215, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.06);
             width: 100%;
             text-align: center;
             border: 2px solid #d4af37;
             position: relative;
             overflow: hidden;
         }
-
         .welcome-box::after {
             content: '';
             position: absolute;
@@ -222,7 +483,6 @@
             background: radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.08), transparent 60%);
             pointer-events: none;
         }
-
         .welcome-box h2 {
             font-size: 30px;
             font-weight: 700;
@@ -249,9 +509,7 @@
             border-radius: 80px;
             width: 100%;
             max-width: 240px;
-            box-shadow: 
-                0 8px 0 #6B5A00,
-                0 12px 30px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 0 #6B5A00, 0 12px 30px rgba(212, 175, 55, 0.3);
             transition: all 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: pointer;
             letter-spacing: 4px;
@@ -263,7 +521,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .login-btn::before {
             content: '';
             position: absolute;
@@ -271,24 +528,16 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.5s ease;
         }
-
         .login-btn:hover::before {
             left: 100%;
         }
-
         .login-btn:active {
             transform: translateY(6px) scale(0.97);
             box-shadow: 0 2px 0 #6B5A00, 0 8px 20px rgba(212, 175, 55, 0.2);
         }
-
-        .login-btn .icon-login {
-            font-size: 30px;
-            line-height: 1;
-        }
-
         .login-footer {
             margin-top: 4px;
             color: #8B7500;
@@ -298,7 +547,9 @@
             font-family: 'Cairo', sans-serif;
         }
 
-        /* ====== الشاشة الرئيسية ====== */
+        /* ============================================================
+           الشاشة الرئيسية
+           ============================================================ */
         .main-screen {
             background: linear-gradient(180deg, #f5f0e8 0%, #e8e0d5 100%);
             flex-direction: column;
@@ -308,61 +559,42 @@
             z-index: 1;
         }
 
-        /* ====== التحكم في إخفاء/إظهار الشاشات ====== */
-        .login-screen.hidden {
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-            position: absolute !important;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 0 !important;
-            transform: scale(0.95) translateY(20px);
+        .menu-toggle-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            font-size: 24px;
+            padding: 8px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+        }
+        .menu-toggle-btn:hover {
+            background: rgba(212, 175, 55, 0.25);
+            transform: scale(1.05);
+        }
+        .menu-toggle-btn:active {
+            transform: scale(0.95);
         }
 
-        .main-screen.hidden {
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-            position: absolute !important;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 0 !important;
-            transform: scale(0.95) translateY(20px);
-        }
-
-        .main-screen.visible {
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
-            position: relative !important;
-            z-index: 2 !important;
-            display: flex !important;
-            transform: scale(1) translateY(0);
-        }
-
-        .login-screen.visible {
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
-            position: relative !important;
-            z-index: 2 !important;
-            transform: scale(1) translateY(0);
-        }
-
-        /* ====== شريط ماركي ذهبي ====== */
         .marquee-wrap {
             background: linear-gradient(135deg, #1a1408, #3d2b1a, #1a1408);
             padding: 12px 0;
             border-bottom: 3px solid #d4af37;
             border-top: 3px solid #d4af37;
             overflow: hidden;
-            box-shadow: inset 0 4px 12px rgba(0,0,0,0.4), 0 2px 8px rgba(212, 175, 55, 0.2);
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(212, 175, 55, 0.2);
             position: relative;
         }
-
         .marquee-wrap::after {
             content: '';
             position: absolute;
@@ -370,10 +602,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, rgba(26,20,8,0.9) 0%, transparent 20%, transparent 80%, rgba(26,20,8,0.9) 100%);
+            background: linear-gradient(90deg, rgba(26, 20, 8, 0.9) 0%, transparent 20%, transparent 80%, rgba(26, 20, 8, 0.9) 100%);
             pointer-events: none;
         }
-
         .marquee-text {
             display: inline-block;
             color: #F5D061;
@@ -388,13 +619,11 @@
             position: relative;
             z-index: 1;
         }
-
         @keyframes scrollMarquee {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
         }
 
-        /* ====== الهيدر ====== */
         .main-header {
             background: linear-gradient(135deg, #f5e6d3, #ecdcc8);
             padding: 22px 24px 18px;
@@ -403,7 +632,6 @@
             text-align: center;
             position: relative;
         }
-
         .main-header::after {
             content: '';
             position: absolute;
@@ -414,7 +642,6 @@
             background: linear-gradient(90deg, transparent, #d4af37, #F5D061, #d4af37, transparent);
             border-radius: 50%;
         }
-
         .main-header .greeting {
             font-size: 28px;
             font-weight: 700;
@@ -428,7 +655,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
         .main-header .sub-title {
             font-size: 20px;
             font-weight: 700;
@@ -444,20 +670,16 @@
             font-family: 'Cairo', sans-serif;
         }
 
-        /* ====== بطاقة الشبكة ====== */
         .network-tab {
             background: linear-gradient(145deg, #f5e6d3, #ecdcc8);
             margin: 24px 20px 18px;
             border-radius: 40px;
             padding: 28px 22px 32px;
-            box-shadow: 
-                inset 0 2px 10px rgba(255, 215, 0, 0.15),
-                0 10px 30px rgba(0, 0, 0, 0.06);
+            box-shadow: inset 0 2px 10px rgba(255, 215, 0, 0.15), 0 10px 30px rgba(0, 0, 0, 0.06);
             border: 2px solid #d4af37;
             position: relative;
             overflow: hidden;
         }
-
         .network-tab::before {
             content: '';
             position: absolute;
@@ -469,7 +691,6 @@
             border-radius: 50%;
             pointer-events: none;
         }
-
         .network-tab .tab-title {
             display: flex;
             align-items: center;
@@ -485,12 +706,6 @@
             position: relative;
             z-index: 1;
         }
-
-        .network-tab .tab-title .icon-network {
-            font-size: 36px;
-            filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.3));
-        }
-
         .link-card {
             background: linear-gradient(145deg, #faf5ed, #f0e8dc);
             border-radius: 32px;
@@ -500,21 +715,15 @@
             align-items: center;
             gap: 18px;
             border: 2px solid #d4af37;
-            box-shadow: 
-                inset 0 2px 8px rgba(255,215,0,0.1),
-                0 4px 16px rgba(0,0,0,0.04);
+            box-shadow: inset 0 2px 8px rgba(255, 215, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.04);
             position: relative;
             z-index: 1;
             transition: all 0.3s ease;
         }
-
         .link-card:hover {
             transform: translateY(-2px);
-            box-shadow: 
-                inset 0 2px 8px rgba(255,215,0,0.1),
-                0 8px 24px rgba(212, 175, 55, 0.08);
+            box-shadow: inset 0 2px 8px rgba(255, 215, 0, 0.1), 0 8px 24px rgba(212, 175, 55, 0.08);
         }
-
         .link-icon-area {
             display: flex;
             align-items: center;
@@ -525,15 +734,13 @@
             border-radius: 80px;
             border: 2px solid #d4af37;
             width: 100%;
-            box-shadow: inset 0 2px 6px rgba(255,215,0,0.15);
+            box-shadow: inset 0 2px 6px rgba(255, 215, 0, 0.15);
         }
-
         .link-icon-area .icon-big {
             font-size: 44px;
             line-height: 1;
             filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.2));
         }
-
         .link-icon-area .icon-label {
             font-size: 20px;
             font-weight: 700;
@@ -541,7 +748,6 @@
             letter-spacing: 3px;
             font-family: 'Cairo', sans-serif;
         }
-
         .link-card .info-btn {
             background: linear-gradient(135deg, #8B7500, #D4AF37, #F5D061);
             border: none;
@@ -552,9 +758,7 @@
             border-radius: 80px;
             width: 100%;
             cursor: pointer;
-            box-shadow: 
-                0 6px 0 #6B5A00,
-                0 8px 24px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 6px 0 #6B5A00, 0 8px 24px rgba(212, 175, 55, 0.2);
             transition: all 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
             display: flex;
             align-items: center;
@@ -565,7 +769,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .link-card .info-btn::before {
             content: '';
             position: absolute;
@@ -573,25 +776,17 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.5s ease;
         }
-
         .link-card .info-btn:hover::before {
             left: 100%;
         }
-
         .link-card .info-btn:active {
             transform: translateY(5px) scale(0.98);
             box-shadow: 0 1px 0 #6B5A00, 0 6px 18px rgba(212, 175, 55, 0.15);
         }
 
-        .link-card .info-btn .icon-card {
-            font-size: 28px;
-            line-height: 1;
-        }
-
-        /* ====== الفوتر ====== */
         .custom-footer {
             background: linear-gradient(135deg, #f5e6d3, #ecdcc8);
             border-top: 3px solid #d4af37;
@@ -599,7 +794,6 @@
             margin-top: 4px;
             text-align: center;
         }
-
         .custom-footer .footer-label {
             font-size: 20px;
             font-weight: 700;
@@ -608,7 +802,6 @@
             letter-spacing: 1px;
             font-family: 'Cairo', sans-serif;
         }
-
         .footer-contact {
             display: flex;
             align-items: center;
@@ -616,7 +809,6 @@
             gap: 24px;
             flex-wrap: wrap;
         }
-
         .footer-contact .contact-item {
             display: flex;
             align-items: center;
@@ -625,9 +817,7 @@
             padding: 8px 22px 8px 16px;
             border-radius: 80px;
             border: 2px solid #d4af37;
-            box-shadow: 
-                0 4px 0 #b8962e,
-                0 4px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 0 #b8962e, 0 4px 12px rgba(0, 0, 0, 0.06);
             transition: all 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: pointer;
             text-decoration: none;
@@ -636,22 +826,18 @@
             font-size: 18px;
             font-family: 'Cairo', sans-serif;
         }
-
         .footer-contact .contact-item:active {
             transform: translateY(4px) scale(0.97);
-            box-shadow: 0 0px 0 #b8962e, 0 4px 12px rgba(0,0,0,0.04);
+            box-shadow: 0 0px 0 #b8962e, 0 4px 12px rgba(0, 0, 0, 0.04);
         }
-
         .footer-contact .contact-item .icon-phone {
             font-size: 28px;
             line-height: 1;
         }
-
         .footer-contact .contact-item .icon-whatsapp {
             font-size: 34px;
             line-height: 1;
         }
-
         .footer-contact .contact-item .action-label {
             font-size: 18px;
             font-weight: 800;
@@ -663,7 +849,6 @@
             display: flex;
             justify-content: center;
         }
-
         .back-action button {
             background: linear-gradient(135deg, #f5e6d3, #ecdcc8);
             border: 2px solid #d4af37;
@@ -677,29 +862,351 @@
             gap: 8px;
             cursor: pointer;
             transition: all 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 4px 0 #b8962e, 0 4px 12px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 0 #b8962e, 0 4px 12px rgba(0, 0, 0, 0.04);
+            font-family: 'Cairo', sans-serif;
+        }
+        .back-action button:active {
+            transform: translateY(4px) scale(0.97);
+            box-shadow: 0 0px 0 #b8962e, 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        /* ============================================================
+           صفحة المحتوى (Features)
+           ============================================================ */
+        .features-page {
+            background: linear-gradient(180deg, #f5f0e8 0%, #e8e0d5 100%);
+            flex-direction: column;
+            min-height: 580px;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+        .features-page .features-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 0;
+            border-bottom: 3px solid #d4af37;
+            margin-bottom: 20px;
+        }
+        .features-page .features-header .back-btn {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid #d4af37;
+            color: #3d2b1a;
+            font-size: 20px;
+            padding: 8px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+        }
+        .features-page .features-header .back-btn:hover {
+            background: rgba(212, 175, 55, 0.25);
+        }
+        .features-page .features-header .back-btn:active {
+            transform: scale(0.95);
+        }
+        .features-page .features-header .features-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #3d2b1a;
+            font-family: 'Cairo', sans-serif;
+            flex: 1;
+            text-align: center;
+        }
+
+        /* شبكة 2x2 للمميزات (Grid) */
+        .features-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            flex: 1;
+        }
+        .features-grid.grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        /* بطاقات المميزات */
+        .feature-card {
+            background: linear-gradient(135deg, #faf5ed, #f0e8dc);
+            border-radius: 20px;
+            padding: 20px 16px;
+            border: 2px solid #d4af37;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+            cursor: default;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
+        }
+        .feature-card .feature-icon {
+            font-size: 38px;
+        }
+        .feature-card .feature-info .feature-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #3d2b1a;
+            font-family: 'Cairo', sans-serif;
+        }
+        .feature-card .feature-info .feature-desc {
+            font-size: 13px;
+            color: #6d5b48;
+            font-family: 'Cairo', sans-serif;
+            margin-top: 2px;
+        }
+        .feature-card .feature-status {
+            background: linear-gradient(135deg, #8B7500, #D4AF37);
+            color: #1a1408;
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            margin-top: 4px;
+        }
+        /* بطاقة تفاعلية (تعدد المستخدمين) */
+        .feature-card.interactive {
+            cursor: pointer;
+        }
+        .feature-card.interactive:active {
+            transform: scale(0.95);
+        }
+
+        /* بطاقات الإشعارات (Toggle) */
+        .notification-card {
+            background: linear-gradient(135deg, #faf5ed, #f0e8dc);
+            border-radius: 20px;
+            padding: 16px 20px;
+            border: 2px solid #d4af37;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+        .notification-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.1);
+        }
+        .notification-card .notif-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .notification-card .notif-info .notif-icon {
+            font-size: 28px;
+        }
+        .notification-card .notif-info .notif-text {
+            font-size: 17px;
+            font-weight: 700;
+            color: #3d2b1a;
             font-family: 'Cairo', sans-serif;
         }
 
-        .back-action button:active {
-            transform: translateY(4px) scale(0.97);
-            box-shadow: 0 0px 0 #b8962e, 0 4px 12px rgba(0,0,0,0.02);
+        /* زر التبديل (Toggle Switch) */
+        .toggle-switch {
+            width: 52px;
+            height: 28px;
+            background: #ccc;
+            border-radius: 30px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            flex-shrink: 0;
+            border: 2px solid #b8a58e;
+        }
+        .toggle-switch.active {
+            background: linear-gradient(135deg, #D4AF37, #F5D061);
+            border-color: #d4af37;
+        }
+        .toggle-switch .toggle-knob {
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            right: 2px;
+            transition: right 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        .toggle-switch.active .toggle-knob {
+            right: 26px;
         }
 
-        .back-action button .icon-back {
-            font-size: 20px;
-            line-height: 1;
+        /* بطاقات الدعم */
+        .support-card {
+            background: linear-gradient(135deg, #faf5ed, #f0e8dc);
+            border-radius: 20px;
+            padding: 18px 20px;
+            border: 2px solid #d4af37;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: #3d2b1a;
+        }
+        .support-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.1);
+        }
+        .support-card:active {
+            transform: scale(0.97);
+        }
+        .support-card .support-icon {
+            font-size: 32px;
+            min-width: 44px;
+            text-align: center;
+        }
+        .support-card .support-info .support-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #3d2b1a;
+            font-family: 'Cairo', sans-serif;
+        }
+        .support-card .support-info .support-desc {
+            font-size: 14px;
+            color: #6d5b48;
+            font-family: 'Cairo', sans-serif;
+        }
+        .support-card .support-action {
+            background: linear-gradient(135deg, #8B7500, #D4AF37);
+            color: #1a1408;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
         }
 
-        /* ====== أيقونات ====== */
-        .icon-arrow:before { content: "▶"; font-size: 14px; margin-left: 4px; }
-        .icon-login { font-size: 30px; line-height: 1; }
-        .icon-network { font-size: 36px; }
-        .icon-card { font-size: 28px; }
-        .icon-exit:before { content: "⇤"; font-size: 18px; }
-        .icon-back { font-size: 20px; }
+        /* ============================================================
+           رسائل التأكيد (Toast)
+           ============================================================ */
+        #toastContainer {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            pointer-events: none;
+            width: 90%;
+            max-width: 400px;
+        }
+        .toast {
+            background: rgba(20, 20, 20, 0.9);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 60px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: auto;
+            text-align: center;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .toast.hide {
+            animation: slideDown 0.3s ease forwards;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes slideDown {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(30px); }
+        }
 
-        /* ====== ريسponsive ====== */
+        /* ============================================================
+           التحكم في إخفاء/إظهار الشاشات
+           ============================================================ */
+        .login-screen.hidden {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 0 !important;
+            transform: scale(0.95) translateY(20px);
+        }
+        .main-screen.hidden {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 0 !important;
+            transform: scale(0.95) translateY(20px);
+        }
+        .features-page.hidden {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 0 !important;
+            transform: scale(0.95) translateY(20px);
+        }
+        .main-screen.visible {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            position: relative !important;
+            z-index: 2 !important;
+            display: flex !important;
+            transform: scale(1) translateY(0);
+        }
+        .login-screen.visible {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            position: relative !important;
+            z-index: 2 !important;
+            transform: scale(1) translateY(0);
+        }
+        .features-page.visible {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            position: relative !important;
+            z-index: 3 !important;
+            display: flex !important;
+            transform: scale(1) translateY(0);
+        }
+
+        /* ============================================================
+           ريسponsive
+           ============================================================ */
         @media (max-width: 420px) {
             .login-screen { padding: 32px 16px 36px; }
             .brand .logo-main { font-size: 42px; letter-spacing: 6px; }
@@ -719,8 +1226,21 @@
             .image-container { max-width: 100%; }
             .marquee-text { font-size: 17px; letter-spacing: 2px; }
             .app-container { border-radius: 40px 40px 32px 32px; }
+            .side-menu { width: 280px; right: -300px; }
+            .menu-toggle-btn { font-size: 22px; padding: 6px 12px; }
+            .menu-toggle-btn .menu-label { display: none; }
+            .features-page .features-header .features-title { font-size: 20px; }
+            .feature-card .feature-info .feature-name { font-size: 14px; }
+            .feature-card .feature-info .feature-desc { font-size: 12px; }
+            .notification-card .notif-info .notif-text { font-size: 15px; }
+            .support-card .support-info .support-name { font-size: 16px; }
+            .features-grid.grid-2col { gap: 10px; }
+            .feature-card { padding: 14px 10px; }
+            .feature-card .feature-icon { font-size: 30px; }
+            .toggle-switch { width: 44px; height: 24px; }
+            .toggle-switch .toggle-knob { width: 18px; height: 18px; top: 1px; right: 2px; }
+            .toggle-switch.active .toggle-knob { right: 22px; }
         }
-
         @media (max-width: 360px) {
             .brand .logo-main { font-size: 34px; letter-spacing: 4px; }
             .brand .logo-sub { font-size: 16px; letter-spacing: 4px; padding: 4px 14px; }
@@ -737,126 +1257,543 @@
             .footer-contact .contact-item .action-label { font-size: 13px; }
             .footer-contact .contact-item .icon-phone { font-size: 20px; }
             .footer-contact .contact-item .icon-whatsapp { font-size: 24px; }
+            .side-menu { width: 260px; right: -280px; }
+            .side-menu .menu-item { font-size: 16px; padding: 12px 14px; }
+            .features-grid.grid-2col { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .feature-card { padding: 12px 8px; }
+            .feature-card .feature-icon { font-size: 26px; }
+            .feature-card .feature-info .feature-name { font-size: 12px; }
+            .feature-card .feature-info .feature-desc { font-size: 10px; }
         }
     </style>
 </head>
 <body>
 
-<div class="app-container" id="appContainer">
-    <!-- ====== شاشة الدخول ====== -->
-    <div class="login-screen visible" id="loginScreen">
-        <div class="brand">
-            <div class="logo-main">AHG</div>
-            <div class="logo-sub">ALHAMADI</div>
-            <div class="logo-ahg">GROUP</div>
-        </div>
-
-        <div class="image-container" id="imageContainer">
-            <img src="https://raw.githubusercontent.com/abrahymalmhady7-alt/brhom/main/Logo.jpg" alt="ALHAMADI GROUP" id="logoImage" />
-        </div>
-
-        <div class="welcome-box">
-            <h2>مرحباً بك <span>عميلنا الحبيب</span></h2>
-        </div>
-
-        <button class="login-btn" id="loginBtn" onclick="showMain()">
-            <span class="icon-login">⏎</span> دخول
-        </button>
-
-        <div class="login-footer">✦ ALHAMADI GROUP • 2026 ✦</div>
+    <!-- ====== شاشة التحميل (Splash Screen) ====== -->
+    <div id="splashScreen">
+        <div class="splash-logo">✦ AHG ✦</div>
+        <div class="splash-loader"></div>
+        <div class="splash-sub">شبكة طوفان الأقصى</div>
     </div>
 
-    <!-- ====== الشاشة الرئيسية ====== -->
-    <div class="main-screen hidden" id="mainScreen">
-        <div class="marquee-wrap">
-            <span class="marquee-text">🌟 مرحبا بكم في شبكة طوفان الاقصى ترقبو المفاجآت 🌟</span>
+    <!-- ====== رسائل التأكيد (Toast) ====== -->
+    <div id="toastContainer"></div>
+
+    <!-- ====== القائمة الجانبية ====== -->
+    <div class="side-menu-overlay" id="sideMenuOverlay" onclick="closeSideMenu()"></div>
+    <div class="side-menu" id="sideMenu">
+        <button class="menu-close" onclick="closeSideMenu()">✕</button>
+        <div class="menu-header">
+            <div class="menu-logo">✦ AHG ✦</div>
+            <div class="menu-sub">شبكة طوفان الأقصى</div>
         </div>
 
-        <div class="main-header">
-            <div class="greeting">👑 مرحبا بك <strong>عميلنا الحبيب</strong></div>
-            <div class="sub-title">شبكة طوفان الأقصى</div>
+        <!-- مميزاتنا -->
+        <div class="menu-item" onclick="openFeatures('مميزاتنا')">
+            <span class="item-icon">⭐</span>
+            <span class="item-text">مميزاتنا</span>
+            <span class="item-arrow">◀</span>
         </div>
 
-        <div class="network-tab" id="networkTab">
-            <div class="tab-title">
-                <span class="icon-network">🏛️</span> 
-                <span>شبكة طوفان الأقصى</span>
+        <!-- الإشعارات مع شارة (Badge) -->
+        <div class="menu-item" onclick="openFeatures('الإشعارات')">
+            <span class="item-icon">🔔</span>
+            <span class="item-text">الإشعارات</span>
+            <span class="badge" id="notifBadge">3</span>
+            <span class="item-arrow">◀</span>
+        </div>
+
+        <!-- الدعم والمساعدة -->
+        <div class="menu-item" onclick="openFeatures('الدعم والمساعدة')">
+            <span class="item-icon">🆘</span>
+            <span class="item-text">الدعم والمساعدة</span>
+            <span class="item-arrow">◀</span>
+        </div>
+
+        <!-- عن التطبيق -->
+        <div class="menu-item" onclick="openFeatures('عن التطبيق')">
+            <span class="item-icon">ℹ️</span>
+            <span class="item-text">عن التطبيق</span>
+            <span class="item-arrow">◀</span>
+        </div>
+
+        <!-- الوضع الليلي (Dark Mode) -->
+        <div class="menu-item" onclick="toggleDarkMode()" style="border-color: rgba(212,175,55,0.3);">
+            <span class="item-icon" id="darkModeIcon">🌙</span>
+            <span class="item-text" id="darkModeText">الوضع الليلي</span>
+            <span class="item-arrow">◀</span>
+        </div>
+    </div>
+
+    <!-- ====== الحاوية الرئيسية ====== -->
+    <div class="app-container" id="appContainer">
+
+        <!-- ====== شاشة الدخول ====== -->
+        <div class="login-screen visible" id="loginScreen">
+            <div class="brand">
+                <div class="logo-main">AHG</div>
+                <div class="logo-sub">ALHAMADI</div>
+                <div class="logo-ahg">GROUP</div>
             </div>
 
-            <div class="link-card">
-                <div class="link-icon-area">
-                    <span class="icon-big">🪪</span>
-                    <span class="icon-label">بطاقة العميل</span>
+            <div class="image-container" id="imageContainer">
+                <img src="https://raw.githubusercontent.com/abrahymalmhady7-alt/brhom/main/Logo.jpg" alt="ALHAMADI GROUP" id="logoImage" />
+            </div>
+
+            <div class="welcome-box">
+                <h2>مرحباً بك <span>عميلنا الحبيب</span></h2>
+            </div>
+
+            <button class="login-btn" id="loginBtn" onclick="handleLogin()">
+                <span class="icon-login">⏎</span> دخول
+            </button>
+
+            <div class="login-footer">✦ ALHAMADI GROUP • 2026 ✦</div>
+        </div>
+
+        <!-- ====== الشاشة الرئيسية ====== -->
+        <div class="main-screen hidden" id="mainScreen">
+            <button class="menu-toggle-btn" onclick="toggleSideMenu(); hapticFeedback();">
+                <span class="menu-icon">☰</span>
+                <span class="menu-label">القائمة</span>
+            </button>
+
+            <div class="marquee-wrap">
+                <span class="marquee-text">🌟 مرحبا بكم في شبكة طوفان الاقصى ترقبو المفاجآت 🌟</span>
+            </div>
+
+            <div class="main-header">
+                <div class="greeting">👑 مرحبا بك <strong>عميلنا الحبيب</strong></div>
+                <div class="sub-title">شبكة طوفان الأقصى</div>
+            </div>
+
+            <div class="network-tab" id="networkTab">
+                <div class="tab-title">
+                    <span class="icon-network">🏛️</span>
+                    <span>شبكة طوفان الأقصى</span>
                 </div>
 
-                <button class="info-btn" id="openLinkBtn" onclick="openLink()">
-                    <span class="icon-card">🪪</span> للحصول على معلومات كرتك اضغط هنا
+                <div class="link-card">
+                    <div class="link-icon-area">
+                        <span class="icon-big">🪪</span>
+                        <span class="icon-label">بطاقة العميل</span>
+                    </div>
+
+                    <button class="info-btn" id="openLinkBtn" onclick="openLink(); hapticFeedback();">
+                        <span class="icon-card">🪪</span> للحصول على معلومات كرتك اضغط هنا
+                    </button>
+
+                    <span id="hiddenLink" style="display:none;">http://a.com/status</span>
+                </div>
+            </div>
+
+            <div class="custom-footer">
+                <div class="footer-label">📞 للشكاوي والاستفسار التواصل مع المهندس</div>
+                <div class="footer-contact">
+                    <a href="tel:773108586" class="contact-item" id="callBtn" onclick="hapticFeedback(); showToast('📞 جاري الاتصال...');">
+                        <span class="icon-phone">📞</span>
+                        <span class="action-label">اتصال</span>
+                    </a>
+                    <a href="https://wa.me/967773108586" target="_blank" class="contact-item" id="whatsappBtn" onclick="hapticFeedback(); showToast('💬 جاري فتح واتساب...');">
+                        <span class="icon-whatsapp">💬</span>
+                        <span class="action-label">واتساب</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="back-action">
+                <button id="logoutBtn" onclick="showLogin(); hapticFeedback();">
+                    <span class="icon-back">←</span> خروج
                 </button>
-
-                <span id="hiddenLink" style="display:none;">http://a.com/status</span>
             </div>
         </div>
 
-        <div class="custom-footer">
-            <div class="footer-label">📞 للشكاوي والاستفسار التواصل مع المهندس</div>
-            <div class="footer-contact">
-                <a href="tel:773108586" class="contact-item" id="callBtn">
-                    <span class="icon-phone">📞</span>
-                    <span class="action-label">اتصال</span>
-                </a>
-                <a href="https://wa.me/967773108586" target="_blank" class="contact-item" id="whatsappBtn">
-                    <span class="icon-whatsapp">💬</span>
-                    <span class="action-label">واتساب</span>
-                </a>
+        <!-- ====== صفحة المحتوى ====== -->
+        <div class="features-page hidden" id="featuresPage">
+            <div class="features-header">
+                <button class="back-btn" onclick="closeFeatures(); hapticFeedback();">← رجوع</button>
+                <div class="features-title" id="featuresTitle">المميزات</div>
             </div>
-        </div>
-
-        <div class="back-action">
-            <button id="logoutBtn" onclick="showLogin()">
-                <span class="icon-back">←</span> خروج
-            </button>
+            <div class="features-grid" id="featuresGrid">
+                <!-- يتم ملؤها بواسطة JavaScript -->
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    function showMain() {
-        var login = document.getElementById('loginScreen');
-        var main = document.getElementById('mainScreen');
-        login.className = 'login-screen hidden';
-        main.className = 'main-screen visible';
-    }
-
-    function showLogin() {
-        var login = document.getElementById('loginScreen');
-        var main = document.getElementById('mainScreen');
-        login.className = 'login-screen visible';
-        main.className = 'main-screen hidden';
-    }
-
-    function openLink() {
-        var link = 'http://a.com/status';
-        try {
-            window.open(link, '_blank');
-        } catch (e) {
-            window.location.href = link;
-        }
-    }
-
-    // ====== معالجة خطأ تحميل الصورة ======
-    document.addEventListener('DOMContentLoaded', function() {
-        var img = document.getElementById('logoImage');
-        var container = document.getElementById('imageContainer');
-
-        img.onerror = function() {
-            container.innerHTML = '<div class="image-fallback">🏛️ ALHAMADI GROUP</div>';
-            container.style.background = 'linear-gradient(135deg, #2d1f12, #4d3624)';
-            container.style.display = 'flex';
-            container.style.alignItems = 'center';
-            container.style.justifyContent = 'center';
+    <script>
+        // ============================================================
+        //  البيانات
+        // ============================================================
+        const featuresData = {
+            'مميزاتنا': [
+                { icon: '🚀', name: 'سرعة فائقة', desc: 'استجابة سريعة وأداء متميز' },
+                { icon: '🔒', name: 'أمان عالي', desc: 'حماية متطورة لبياناتك' },
+                { icon: '⚡', name: 'تغيير السرعات', desc: 'بحيث تناسبك تماماً' },
+                { icon: '👥', name: 'تعدد مستخدمين الكرت', desc: 'بإمكانك جعل كرتك لأكثر من مستخدم', interactive: true }
+            ],
+            'الإشعارات': [
+                { id: 'notif1', icon: '💬', name: 'رسائل جديدة' },
+                { id: 'notif2', icon: '📢', name: 'إعلانات مهمة' },
+                { id: 'notif3', icon: '🔄', name: 'تحديثات النظام' },
+                { id: 'notif4', icon: '🎯', name: 'عروض حصرية' }
+            ],
+            'الدعم والمساعدة': [
+                { icon: '📧', name: 'مراسلة الدعم', desc: 'إرسال استفسار للدعم الفني', action: 'مراسلة', link: 'mailto:support@alhamadi.com' },
+                { icon: '📞', name: 'اتصال هاتفي', desc: 'التواصل عبر الهاتف', action: 'اتصال', link: 'tel:773108586' }
+            ],
+            'عن التطبيق': [
+                { icon: 'ℹ️', name: 'الإصدار', desc: 'الإصدار 2.0.1' },
+                { icon: '📅', name: 'تاريخ الإصدار', desc: '2026-07-02' },
+                { icon: '👨‍💻', name: 'المطور', desc: 'فريق ALHAMADI GROUP' },
+                { icon: '📝', name: 'التراخيص', desc: 'جميع الحقوق محفوظة' }
+            ]
         };
-    });
-</script>
+
+        // ============================================================
+        //  الحالة العامة
+        // ============================================================
+        let currentScreen = 'login';
+        let historyStack = ['login'];
+        let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+        // حالة الإشعارات (محفوظة في localStorage)
+        let notificationStates = {
+            'notif1': localStorage.getItem('notif1') === 'true',
+            'notif2': localStorage.getItem('notif2') === 'true',
+            'notif3': localStorage.getItem('notif3') === 'true',
+            'notif4': localStorage.getItem('notif4') === 'true'
+        };
+
+        // ============================================================
+        //  الاهتزاز (Haptic Feedback)
+        // ============================================================
+        function hapticFeedback() {
+            if (navigator.vibrate) {
+                navigator.vibrate(10);
+            }
+        }
+
+        // ============================================================
+        //  رسائل التأكيد (Toast)
+        // ============================================================
+        function showToast(message, duration = 2500) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => {
+                    if (toast.parentNode) toast.remove();
+                }, 300);
+            }, duration);
+        }
+
+        // ============================================================
+        //  شاشة التحميل (Splash Screen)
+        // ============================================================
+        function showSplash(callback) {
+            const splash = document.getElementById('splashScreen');
+            splash.classList.add('active');
+            setTimeout(() => {
+                splash.classList.remove('active');
+                if (callback) callback();
+            }, 1500);
+        }
+
+        // ============================================================
+        //  الوضع الليلي (Dark Mode)
+        // ============================================================
+        function toggleDarkMode() {
+            hapticFeedback();
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            localStorage.setItem('darkMode', isDarkMode);
+            updateDarkModeUI();
+            showToast(isDarkMode ? '🌙 تم تفعيل الوضع الليلي' : '☀️ تم تفعيل الوضع النهاري');
+        }
+
+        function updateDarkModeUI() {
+            const icon = document.getElementById('darkModeIcon');
+            const text = document.getElementById('darkModeText');
+            if (isDarkMode) {
+                icon.textContent = '☀️';
+                text.textContent = 'الوضع النهاري';
+            } else {
+                icon.textContent = '🌙';
+                text.textContent = 'الوضع الليلي';
+            }
+        }
+
+        // تطبيق الوضع الليلي عند التحميل
+        if (isDarkMode) {
+            document.body.classList.add('dark-mode');
+        }
+        updateDarkModeUI();
+
+        // ============================================================
+        //  التنقل بين الشاشات
+        // ============================================================
+        function showMain() {
+            var login = document.getElementById('loginScreen');
+            var main = document.getElementById('mainScreen');
+            var features = document.getElementById('featuresPage');
+            login.className = 'login-screen hidden';
+            main.className = 'main-screen visible';
+            features.className = 'features-page hidden';
+            currentScreen = 'main';
+            historyStack.push('main');
+            showToast('👋 أهلاً بك في شبكة طوفان الأقصى');
+        }
+
+        function showLogin() {
+            var login = document.getElementById('loginScreen');
+            var main = document.getElementById('mainScreen');
+            var features = document.getElementById('featuresPage');
+            login.className = 'login-screen visible';
+            main.className = 'main-screen hidden';
+            features.className = 'features-page hidden';
+            currentScreen = 'login';
+            historyStack = ['login'];
+            closeSideMenu();
+        }
+
+        function handleLogin() {
+            hapticFeedback();
+            showSplash(function() {
+                showMain();
+            });
+        }
+
+        function openFeatures(title) {
+            hapticFeedback();
+            closeSideMenu();
+            var main = document.getElementById('mainScreen');
+            var features = document.getElementById('featuresPage');
+            main.className = 'main-screen hidden';
+            features.className = 'features-page visible';
+            document.getElementById('featuresTitle').textContent = title;
+
+            var grid = document.getElementById('featuresGrid');
+            grid.innerHTML = '';
+            grid.className = 'features-grid';
+
+            if (title === 'مميزاتنا') {
+                grid.classList.add('grid-2col');
+                var items = featuresData[title];
+                items.forEach(function(item) {
+                    var card = document.createElement('div');
+                    card.className = 'feature-card';
+                    if (item.interactive) {
+                        card.classList.add('interactive');
+                        card.onclick = function() {
+                            hapticFeedback();
+                            showToast('👥 ميزة تعدد المستخدمين: يمكنك إضافة مستخدمين جدد من الإعدادات المتقدمة.');
+                        };
+                    }
+                    card.innerHTML = `
+                        <div class="feature-icon">${item.icon}</div>
+                        <div class="feature-info">
+                            <div class="feature-name">${item.name}</div>
+                            <div class="feature-desc">${item.desc}</div>
+                        </div>
+                        <div class="feature-status">متاح</div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } else if (title === 'الإشعارات') {
+                var items = featuresData[title];
+                items.forEach(function(item) {
+                    var card = document.createElement('div');
+                    card.className = 'notification-card';
+                    var isActive = notificationStates[item.id] || false;
+                    card.innerHTML = `
+                        <div class="notif-info">
+                            <span class="notif-icon">${item.icon}</span>
+                            <span class="notif-text">${item.name}</span>
+                        </div>
+                        <div class="toggle-switch ${isActive ? 'active' : ''}" onclick="toggleNotification('${item.id}', this); hapticFeedback();">
+                            <div class="toggle-knob"></div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+                // تحديث الشارة (Badge)
+                updateBadge();
+            } else if (title === 'الدعم والمساعدة') {
+                var items = featuresData[title];
+                items.forEach(function(item) {
+                    var card = document.createElement('a');
+                    card.className = 'support-card';
+                    card.href = item.link;
+                    if (item.action === 'اتصال') {
+                        card.onclick = function(e) {
+                            hapticFeedback();
+                            showToast('📞 جاري الاتصال...');
+                        };
+                    } else {
+                        card.onclick = function(e) {
+                            hapticFeedback();
+                            showToast('📧 جاري فتح البريد...');
+                        };
+                    }
+                    card.innerHTML = `
+                        <span class="support-icon">${item.icon}</span>
+                        <div class="support-info">
+                            <div class="support-name">${item.name}</div>
+                            <div class="support-desc">${item.desc}</div>
+                        </div>
+                        <span class="support-action">${item.action}</span>
+                    `;
+                    grid.appendChild(card);
+                });
+            } else {
+                // عن التطبيق
+                var items = featuresData[title];
+                items.forEach(function(item) {
+                    var card = document.createElement('div');
+                    card.className = 'feature-card';
+                    card.innerHTML = `
+                        <div class="feature-icon">${item.icon}</div>
+                        <div class="feature-info">
+                            <div class="feature-name">${item.name}</div>
+                            <div class="feature-desc">${item.desc}</div>
+                        </div>
+                        <div class="feature-status">✔️</div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            currentScreen = 'features';
+            historyStack.push('features');
+        }
+
+        function closeFeatures() {
+            var main = document.getElementById('mainScreen');
+            var features = document.getElementById('featuresPage');
+            main.className = 'main-screen visible';
+            features.className = 'features-page hidden';
+            currentScreen = 'main';
+            historyStack.pop();
+        }
+
+        // ============================================================
+        //  تبديل الإشعارات (Toggle)
+        // ============================================================
+        function toggleNotification(id, toggleElement) {
+            notificationStates[id] = !notificationStates[id];
+            localStorage.setItem(id, notificationStates[id]);
+            toggleElement.classList.toggle('active');
+            var status = notificationStates[id] ? 'مفعل' : 'معطل';
+            showToast(`🔔 تم ${status} الإشعار`);
+            updateBadge();
+        }
+
+        function updateBadge() {
+            var count = 0;
+            for (var key in notificationStates) {
+                if (notificationStates[key] === false) count++;
+            }
+            var badge = document.getElementById('notifBadge');
+            if (count > 0) {
+                badge.textContent = count;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+        updateBadge();
+
+        // ============================================================
+        //  القائمة الجانبية
+        // ============================================================
+        function toggleSideMenu() {
+            var menu = document.getElementById('sideMenu');
+            var overlay = document.getElementById('sideMenuOverlay');
+            if (menu.classList.contains('open')) {
+                closeSideMenu();
+            } else {
+                menu.classList.add('open');
+                overlay.classList.add('active');
+            }
+        }
+
+        function closeSideMenu() {
+            var menu = document.getElementById('sideMenu');
+            var overlay = document.getElementById('sideMenuOverlay');
+            menu.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        // ============================================================
+        //  زر الرجوع في الجوال (Back Button)
+        // ============================================================
+        window.addEventListener('popstate', function(event) {
+            handleBackButton();
+        });
+
+        function handleBackButton() {
+            if (currentScreen === 'features') {
+                closeFeatures();
+                history.pushState(null, '', window.location.href);
+                showToast('↩️ تم الرجوع');
+            } else if (currentScreen === 'main') {
+                showLogin();
+                history.pushState(null, '', window.location.href);
+                showToast('↩️ تم الخروج');
+            } else if (currentScreen === 'login') {
+                history.pushState(null, '', window.location.href);
+                // لا نغلق التطبيق
+            }
+        }
+
+        window.history.pushState(null, '', window.location.href);
+        window.addEventListener('popstate', function(event) {
+            if (currentScreen === 'login') {
+                history.pushState(null, '', window.location.href);
+            }
+        });
+
+        // ============================================================
+        //  فتح الرابط
+        // ============================================================
+        function openLink() {
+            var link = 'http://a.com/status';
+            hapticFeedback();
+            showToast('🪪 جاري فتح معلومات الكرت...');
+            try {
+                window.open(link, '_blank');
+            } catch (e) {
+                window.location.href = link;
+            }
+        }
+
+        // ============================================================
+        //  معالجة خطأ تحميل الصورة
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            var img = document.getElementById('logoImage');
+            var container = document.getElementById('imageContainer');
+
+            img.onerror = function() {
+                container.innerHTML = '<div class="image-fallback">🏛️ ALHAMADI GROUP</div>';
+                container.style.background = 'linear-gradient(135deg, #2d1f12, #4d3624)';
+                container.style.display = 'flex';
+                container.style.alignItems = 'center';
+                container.style.justifyContent = 'center';
+            };
+
+            history.pushState(null, '', window.location.href);
+
+            // إظهار ترحيب عند التحميل
+            setTimeout(function() {
+                showToast('✨ أهلاً بك في شبكة طوفان الأقصى');
+            }, 500);
+        });
+    </script>
 
 </body>
 </html>
