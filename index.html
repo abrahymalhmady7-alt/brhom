@@ -75,7 +75,6 @@
             background: #141414 !important;
         }
         
-        /* البطاقات في الوضع الليلي */
         body.dark-mode .welcome-box,
         body.dark-mode .main-header,
         body.dark-mode .network-tab,
@@ -90,7 +89,6 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
         }
         
-        /* النصوص في الوضع الليلي */
         body.dark-mode .welcome-box h2,
         body.dark-mode .main-header .greeting,
         body.dark-mode .network-tab .tab-title,
@@ -114,19 +112,12 @@
             color: #888 !important;
         }
         
-        /* الأزرار في الوضع الليلي */
         body.dark-mode .back-action button,
         body.dark-mode .menu-toggle-btn,
         body.dark-mode .features-page .features-header .back-btn {
             background: #1e1e1e !important;
             color: #e8e0d5 !important;
             border-color: #3a3a3a !important;
-        }
-        
-        body.dark-mode .back-action button:hover,
-        body.dark-mode .menu-toggle-btn:hover,
-        body.dark-mode .features-page .features-header .back-btn:hover {
-            background: #2a2a2a !important;
         }
         
         body.dark-mode .side-menu {
@@ -1558,14 +1549,12 @@
             <div class="menu-sub">شبكة طوفان الأقصى</div>
         </div>
 
-        <!-- مميزاتنا -->
         <div class="menu-item" onclick="openFeatures('مميزاتنا')">
             <span class="item-icon">⭐</span>
             <span class="item-text">مميزاتنا</span>
             <span class="item-arrow">◀</span>
         </div>
 
-        <!-- الإشعارات مع شارة (Badge) -->
         <div class="menu-item" onclick="openFeatures('الإشعارات')">
             <span class="item-icon">🔔</span>
             <span class="item-text">الإشعارات</span>
@@ -1573,21 +1562,18 @@
             <span class="item-arrow">◀</span>
         </div>
 
-        <!-- الدعم والمساعدة -->
         <div class="menu-item" onclick="openFeatures('الدعم والمساعدة')">
             <span class="item-icon">🆘</span>
             <span class="item-text">الدعم والمساعدة</span>
             <span class="item-arrow">◀</span>
         </div>
 
-        <!-- عن التطبيق -->
         <div class="menu-item" onclick="openFeatures('عن التطبيق')">
             <span class="item-icon">ℹ️</span>
             <span class="item-text">عن التطبيق</span>
             <span class="item-arrow">◀</span>
         </div>
 
-        <!-- الوضع الليلي (Dark Mode) -->
         <div class="menu-item" onclick="toggleDarkMode()" style="border-color: rgba(212,175,55,0.3);">
             <span class="item-icon" id="darkModeIcon">🌙</span>
             <span class="item-text" id="darkModeText">الوضع الليلي</span>
@@ -1684,9 +1670,7 @@
                 <button class="back-btn" onclick="closeFeatures(); hapticFeedback();">← رجوع</button>
                 <div class="features-title" id="featuresTitle">المميزات</div>
             </div>
-            <div class="features-grid" id="featuresGrid">
-                <!-- يتم ملؤها بواسطة JavaScript -->
-            </div>
+            <div class="features-grid" id="featuresGrid"></div>
         </div>
     </div>
 
@@ -1726,13 +1710,139 @@
         let isDarkMode = localStorage.getItem('darkMode') === 'true';
         let isTransitioning = false;
 
-        // حالة الإشعارات (محفوظة في localStorage)
         let notificationStates = {
             'notif1': localStorage.getItem('notif1') === 'true',
             'notif2': localStorage.getItem('notif2') === 'true',
             'notif3': localStorage.getItem('notif3') === 'true',
             'notif4': localStorage.getItem('notif4') === 'true'
         };
+
+        // ============================================================
+        //  حفظ واستعادة الحالة - الحل الجذري لمشكلة الرجوع
+        // ============================================================
+        function saveState() {
+            sessionStorage.setItem('currentScreen', currentScreen);
+            sessionStorage.setItem('isDarkMode', isDarkMode ? 'true' : 'false');
+        }
+
+        function restoreState() {
+            const savedScreen = sessionStorage.getItem('currentScreen');
+            if (savedScreen) {
+                currentScreen = savedScreen;
+                // تطبيق الحالة المحفوظة
+                if (currentScreen === 'main') {
+                    document.getElementById('loginScreen').className = 'login-screen hidden';
+                    document.getElementById('mainScreen').className = 'main-screen visible';
+                    document.getElementById('featuresPage').className = 'features-page hidden';
+                } else if (currentScreen === 'features') {
+                    document.getElementById('loginScreen').className = 'login-screen hidden';
+                    document.getElementById('mainScreen').className = 'main-screen hidden';
+                    document.getElementById('featuresPage').className = 'features-page visible';
+                    // إعادة بناء محتوى المميزات
+                    const title = sessionStorage.getItem('featuresTitle') || 'مميزاتنا';
+                    document.getElementById('featuresTitle').textContent = title;
+                    buildFeaturesContent(title);
+                } else {
+                    document.getElementById('loginScreen').className = 'login-screen visible';
+                    document.getElementById('mainScreen').className = 'main-screen hidden';
+                    document.getElementById('featuresPage').className = 'features-page hidden';
+                }
+            }
+        }
+
+        // ============================================================
+        //  بناء محتوى المميزات
+        // ============================================================
+        function buildFeaturesContent(title) {
+            var grid = document.getElementById('featuresGrid');
+            grid.innerHTML = '';
+            grid.className = 'features-grid';
+
+            if (title === 'مميزاتنا') {
+                grid.classList.add('grid-2col');
+                var items = featuresData[title];
+                items.forEach(function(item) {
+                    var card = document.createElement('div');
+                    card.className = 'feature-card';
+                    if (item.interactive) {
+                        card.classList.add('interactive');
+                        card.onclick = function() {
+                            hapticFeedback();
+                            showToast('👥 ميزة تعدد المستخدمين: يمكنك إضافة مستخدمين جدد من الإعدادات المتقدمة.');
+                        };
+                    }
+                    card.innerHTML = `
+                        <div class="feature-icon">${item.icon}</div>
+                        <div class="feature-info">
+                            <div class="feature-name">${item.name}</div>
+                            <div class="feature-desc">${item.desc}</div>
+                        </div>
+                        <div class="feature-status">متاح</div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } else if (title === 'الإشعارات') {
+                var items = featuresData[title];
+                items.forEach(function(item) {
+                    var card = document.createElement('div');
+                    card.className = 'notification-card';
+                    var isActive = notificationStates[item.id] || false;
+                    card.innerHTML = `
+                        <div class="notif-info">
+                            <span class="notif-icon">${item.icon}</span>
+                            <span class="notif-text">${item.name}</span>
+                        </div>
+                        <div class="toggle-switch ${isActive ? 'active' : ''}" onclick="toggleNotification('${item.id}', this); hapticFeedback();">
+                            <div class="toggle-knob"></div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+                updateBadge();
+            } else if (title === 'الدعم والمساعدة') {
+                var items = featuresData[title];
+                items.forEach(function(item) {
+                    var card = document.createElement('a');
+                    card.className = 'support-card';
+                    card.href = item.link;
+                    if (item.action === 'اتصال') {
+                        card.onclick = function(e) {
+                            hapticFeedback();
+                            showToast('📞 جاري الاتصال...');
+                        };
+                    } else {
+                        card.onclick = function(e) {
+                            hapticFeedback();
+                            showToast('💬 جاري فتح واتساب...');
+                        };
+                    }
+                    card.innerHTML = `
+                        <span class="support-icon">${item.icon}</span>
+                        <div class="support-info">
+                            <div class="support-name">${item.name}</div>
+                            <div class="support-desc">${item.desc}</div>
+                        </div>
+                        <span class="support-action">${item.action}</span>
+                    `;
+                    grid.appendChild(card);
+                });
+            } else {
+                var items = featuresData[title];
+                items.forEach(function(item) {
+                    var card = document.createElement('div');
+                    card.className = 'feature-card';
+                    card.innerHTML = `
+                        <div class="feature-icon">${item.icon}</div>
+                        <div class="feature-info">
+                            <div class="feature-name">${item.name}</div>
+                            <div class="feature-desc">${item.desc}</div>
+                        </div>
+                        <div class="feature-status">✔️</div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+        }
 
         // ============================================================
         //  الاهتزاز (Haptic Feedback)
@@ -1782,6 +1892,7 @@
             document.body.classList.toggle('dark-mode', isDarkMode);
             localStorage.setItem('darkMode', isDarkMode);
             updateDarkModeUI();
+            saveState();
             showToast(isDarkMode ? '🌙 تم تفعيل الوضع الليلي' : '☀️ تم تفعيل الوضع النهاري');
         }
 
@@ -1797,27 +1908,23 @@
             }
         }
 
-        // تطبيق الوضع الليلي عند التحميل
         if (isDarkMode) {
             document.body.classList.add('dark-mode');
         }
         updateDarkModeUI();
 
         // ============================================================
-        //  التنقل بين الشاشات - مع إبطاء الحركة
+        //  التنقل بين الشاشات
         // ============================================================
         function showMain() {
             if (isTransitioning) return;
             isTransitioning = true;
             
-            var login = document.getElementById('loginScreen');
-            var main = document.getElementById('mainScreen');
-            var features = document.getElementById('featuresPage');
-            
-            login.className = 'login-screen hidden';
-            main.className = 'main-screen visible';
-            features.className = 'features-page hidden';
+            document.getElementById('loginScreen').className = 'login-screen hidden';
+            document.getElementById('mainScreen').className = 'main-screen visible';
+            document.getElementById('featuresPage').className = 'features-page hidden';
             currentScreen = 'main';
+            saveState();
             
             setTimeout(() => {
                 isTransitioning = false;
@@ -1829,15 +1936,12 @@
             if (isTransitioning) return;
             isTransitioning = true;
             
-            var login = document.getElementById('loginScreen');
-            var main = document.getElementById('mainScreen');
-            var features = document.getElementById('featuresPage');
-            
-            login.className = 'login-screen visible';
-            main.className = 'main-screen hidden';
-            features.className = 'features-page hidden';
+            document.getElementById('loginScreen').className = 'login-screen visible';
+            document.getElementById('mainScreen').className = 'main-screen hidden';
+            document.getElementById('featuresPage').className = 'features-page hidden';
             currentScreen = 'login';
             closeSideMenu();
+            saveState();
             
             setTimeout(() => {
                 isTransitioning = false;
@@ -1858,103 +1962,14 @@
             hapticFeedback();
             closeSideMenu();
             
-            var main = document.getElementById('mainScreen');
-            var features = document.getElementById('featuresPage');
-            
-            main.className = 'main-screen hidden';
-            features.className = 'features-page visible';
+            document.getElementById('mainScreen').className = 'main-screen hidden';
+            document.getElementById('featuresPage').className = 'features-page visible';
             document.getElementById('featuresTitle').textContent = title;
-
-            var grid = document.getElementById('featuresGrid');
-            grid.innerHTML = '';
-            grid.className = 'features-grid';
-
-            if (title === 'مميزاتنا') {
-                grid.classList.add('grid-2col');
-                var items = featuresData[title];
-                items.forEach(function(item) {
-                    var card = document.createElement('div');
-                    card.className = 'feature-card';
-                    if (item.interactive) {
-                        card.classList.add('interactive');
-                        card.onclick = function() {
-                            hapticFeedback();
-                            showToast('👥 ميزة تعدد المستخدمين: يمكنك إضافة مستخدمين جدد من الإعدادات المتقدمة.');
-                        };
-                    }
-                    card.innerHTML = `
-                            <div class="feature-icon">${item.icon}</div>
-                            <div class="feature-info">
-                                <div class="feature-name">${item.name}</div>
-                                <div class="feature-desc">${item.desc}</div>
-                            </div>
-                            <div class="feature-status">متاح</div>
-                        `;
-                    grid.appendChild(card);
-                });
-            } else if (title === 'الإشعارات') {
-                var items = featuresData[title];
-                items.forEach(function(item) {
-                    var card = document.createElement('div');
-                    card.className = 'notification-card';
-                    var isActive = notificationStates[item.id] || false;
-                    card.innerHTML = `
-                            <div class="notif-info">
-                                <span class="notif-icon">${item.icon}</span>
-                                <span class="notif-text">${item.name}</span>
-                            </div>
-                            <div class="toggle-switch ${isActive ? 'active' : ''}" onclick="toggleNotification('${item.id}', this); hapticFeedback();">
-                                <div class="toggle-knob"></div>
-                            </div>
-                        `;
-                    grid.appendChild(card);
-                });
-                updateBadge();
-            } else if (title === 'الدعم والمساعدة') {
-                var items = featuresData[title];
-                items.forEach(function(item) {
-                    var card = document.createElement('a');
-                    card.className = 'support-card';
-                    card.href = item.link;
-                    if (item.action === 'اتصال') {
-                        card.onclick = function(e) {
-                            hapticFeedback();
-                            showToast('📞 جاري الاتصال...');
-                        };
-                    } else {
-                        card.onclick = function(e) {
-                            hapticFeedback();
-                            showToast('💬 جاري فتح واتساب...');
-                        };
-                    }
-                    card.innerHTML = `
-                            <span class="support-icon">${item.icon}</span>
-                            <div class="support-info">
-                                <div class="support-name">${item.name}</div>
-                                <div class="support-desc">${item.desc}</div>
-                            </div>
-                            <span class="support-action">${item.action}</span>
-                        `;
-                    grid.appendChild(card);
-                });
-            } else {
-                var items = featuresData[title];
-                items.forEach(function(item) {
-                    var card = document.createElement('div');
-                    card.className = 'feature-card';
-                    card.innerHTML = `
-                            <div class="feature-icon">${item.icon}</div>
-                            <div class="feature-info">
-                                <div class="feature-name">${item.name}</div>
-                                <div class="feature-desc">${item.desc}</div>
-                            </div>
-                            <div class="feature-status">✔️</div>
-                        `;
-                    grid.appendChild(card);
-                });
-            }
-
+            
+            buildFeaturesContent(title);
             currentScreen = 'features';
+            sessionStorage.setItem('featuresTitle', title);
+            saveState();
             
             setTimeout(() => {
                 isTransitioning = false;
@@ -1965,12 +1980,10 @@
             if (isTransitioning) return;
             isTransitioning = true;
             
-            var main = document.getElementById('mainScreen');
-            var features = document.getElementById('featuresPage');
-            
-            main.className = 'main-screen visible';
-            features.className = 'features-page hidden';
+            document.getElementById('mainScreen').className = 'main-screen visible';
+            document.getElementById('featuresPage').className = 'features-page hidden';
             currentScreen = 'main';
+            saveState();
             
             setTimeout(() => {
                 isTransitioning = false;
@@ -1987,6 +2000,7 @@
             var status = notificationStates[id] ? 'مفعل' : 'معطل';
             showToast(`🔔 تم ${status} الإشعار`);
             updateBadge();
+            saveState();
         }
 
         function updateBadge() {
@@ -2026,29 +2040,35 @@
         }
 
         // ============================================================
-        //  زر الرجوع في الجوال (Back Button)
+        //  حل مشكلة زر الرجوع في الجوال - الطريقة النهائية
         // ============================================================
+        // منع الخروج من التطبيق عند الضغط على زر الرجوع
         window.addEventListener('popstate', function(event) {
-            handleBackButton();
-        });
-
-        function handleBackButton() {
+            // إضافة حالة جديدة في التاريخ لمنع الخروج
+            history.pushState(null, '', window.location.href);
+            
             if (isTransitioning) return;
             
             if (currentScreen === 'features') {
                 closeFeatures();
-                history.pushState(null, '', window.location.href);
                 showToast('↩️ تم الرجوع إلى الرئيسية');
             } else if (currentScreen === 'main') {
-                history.pushState(null, '', window.location.href);
                 showToast('📱 أنت في الصفحة الرئيسية');
             } else if (currentScreen === 'login') {
-                history.pushState(null, '', window.location.href);
+                // في شاشة الدخول لا نفعل شيئاً
             }
-        }
+        });
 
+        // إضافة حالات متعددة في التاريخ لمنع الخروج
         history.pushState(null, '', window.location.href);
         history.pushState(null, '', window.location.href);
+        history.pushState(null, '', window.location.href);
+
+        // منع إعادة التحميل عند الرجوع
+        window.addEventListener('beforeunload', function(e) {
+            // لا نمنع إعادة التحميل تماماً، فقط نمنع الخروج
+            return null;
+        });
 
         // ============================================================
         //  فتح الرابط
@@ -2065,7 +2085,7 @@
         }
 
         // ============================================================
-        //  معالجة خطأ تحميل الصورة
+        //  معالجة خطأ تحميل الصورة واستعادة الحالة
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             var img = document.getElementById('logoImage');
@@ -2078,6 +2098,9 @@
                 container.style.alignItems = 'center';
                 container.style.justifyContent = 'center';
             };
+
+            // استعادة الحالة المحفوظة
+            restoreState();
 
             setTimeout(function() {
                 showToast('✨ أهلاً بك في شبكة طوفان الأقصى');
